@@ -25,7 +25,7 @@ dependencies:
 
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/your-username/flutter_apis.git
+   git clone https://github.com/azam-izm/flutter_apis.git
    cd flutter_apis/flutter_http_get_example
    ```
 2. **Get dependencies**
