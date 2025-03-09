@@ -70,15 +70,20 @@ class HttpGetExample extends StatelessWidget {
 
 // Fetches todo items from the API using an HTTP GET request.
 Future<ModelClass> fetchTodos() async {
-  final url = Uri.parse('https://dummyjson.com/todos'); // API endpoint
-  final response = await http.get(url); // Making a GET request
+  try {
+    final url = Uri.parse('https://dummyjson.com/todos'); // API endpoint
+    final response = await http.get(url); // Making a GET request
 
-  if (response.statusCode == 200) {
-    // If successful, decode the JSON response
-    Map<String, dynamic> data = jsonDecode(response.body);
-    return ModelClass.fromJson(data); // Convert JSON to ModelClass object
-  } else {
-    // If the request fails, throw an exception
-    throw Exception('Failed to load todos');
+    if (response.statusCode == 200) {
+      // If successful, decode the JSON response
+      Map<String, dynamic> data = jsonDecode(response.body);
+      return ModelClass.fromJson(data); // Convert JSON to ModelClass object
+    } else {
+      // If the request fails, throw an exception with status code
+      throw Exception('Failed to load todos: ${response.statusCode}');
+    }
+  } catch (error) {
+    // Catch network errors, timeouts, or JSON parsing issues
+    throw Exception('An error occurred: $error');
   }
 }
