@@ -152,7 +152,7 @@ A complete collection of essential Flutter widgets, categorized for easy navigat
 ## 🚀 Get Started
 1. **Clone the Repository:**
    ```sh
-   git clone https://github.com/yourusername/flutter-from-zero-to-hero.git
+   git clone https://github.com/azam-izm/flutter-from-zero-to-hero.git
    ```
 2. **Navigate to the Project:**
    ```sh
