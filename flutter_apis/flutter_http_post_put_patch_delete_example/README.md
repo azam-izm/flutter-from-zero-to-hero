@@ -54,10 +54,3 @@ flutter_http_post_put_patch_delete/
 ![App Screenshot](assets/screenshots/screenshot.png)  
 
 ---
-
-## 🛠 **Setup & Installation**  
-
-### 1️⃣ **Clone the Repository**  
-```sh
-git clone https://github.com/azam-izm/flutter_http_post_put_patch_delete.git
-cd flutter_http_post_put_patch_delete
