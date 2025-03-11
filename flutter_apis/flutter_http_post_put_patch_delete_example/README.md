@@ -25,6 +25,8 @@ A Flutter project demonstrating **HTTP methods** (`POST`, `PUT`, `PATCH`, `DELET
 ---
 
 ## 📂 **Project Structure** 
+
+```
 flutter_http_post_put_patch_delete/
 │── lib/
 │   ├── main.dart                  # Entry point of the app
@@ -33,6 +35,7 @@ flutter_http_post_put_patch_delete/
 │   ├── screenshots/                # Folder for app screenshots
 │── pubspec.yaml                    # Dependencies & package info
 │── README.md                       # Project documentation
+```
 
 
 ## 📸 **Screenshot**  
