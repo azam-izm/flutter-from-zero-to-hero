@@ -51,5 +51,6 @@ flutter_http_post_put_patch_delete/
 
 ## 📸 **Screenshot**  
 
+![App Screenshot](assets/screenshots/screenshot.png)
 
 ---
