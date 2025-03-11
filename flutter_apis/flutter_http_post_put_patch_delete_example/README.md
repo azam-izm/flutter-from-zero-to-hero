@@ -11,6 +11,17 @@ A Flutter project demonstrating **HTTP methods** (`POST`, `PUT`, `PATCH`, `DELET
 ✅ **Snackbar feedback** - Displays real-time response messages.  
 ✅ **Scrollable UI** - Uses `ListView` to prevent screen overflow.  
 
+## 📦 Dependencies
+
+Ensure you have the following dependencies in your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.3.0 # Ensure you have the latest version
+```
+
 ---
 
 ## 🔗 **API Endpoints Used**  
