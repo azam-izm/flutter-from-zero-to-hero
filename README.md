@@ -1,6 +1,6 @@
 # Flutter From Zero to Hero 🚀
 
-Welcome to **Flutter From Zero to Hero**, the ultimate structured guide to mastering Flutter! This repository provides in-depth explanations, best practices, and real-world insights—without following a tutorial-style approach. Whether you're a beginner or an experienced developer, this repo will help you build **scalable, efficient, and high-performance Flutter applications**.
+Welcome to **Flutter From Zero to Hero**, the ultimate structured guide to mastering Flutter! This repository provides in-depth explanations, best practices, and real-world insights without following a tutorial-style approach. Whether you're a beginner or an experienced developer, this repo will help you build **scalable, efficient, and high-performance Flutter applications**.
 
 ## 📌 Roadmap
 
