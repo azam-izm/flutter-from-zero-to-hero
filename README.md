@@ -7,6 +7,7 @@ Welcome to **Flutter From Zero to Hero**, the ultimate structured guide to maste
 This roadmap outlines everything covered in this repository, including existing and upcoming content. Each section follows a **logical progression**, ensuring a seamless learning experience.
 
 **Flutter Widgets Collection** 
+
 A complete collection of essential Flutter widgets, categorized for easy navigation.
 
 #### 📂 **App Structure and Layout Widgets**
