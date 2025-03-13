@@ -6,14 +6,7 @@ Welcome to **Flutter From Zero to Hero**, the ultimate structured guide to maste
 
 This roadmap outlines everything covered in this repository, including existing and upcoming content. Each section follows a **logical progression**, ensuring a seamless learning experience.
 
-### 1️⃣ **Flutter Fundamentals** (Coming Soon)
-- Flutter project structure and setup
-- Understanding widgets & UI framework
-- Stateless vs Stateful widgets
-- The widget tree & BuildContext
-- Hot reload vs hot restart
-
-### 2️⃣ **Flutter Widgets Collection** (📌 Uploaded ✅)
+### 2️⃣ **Flutter Widgets Collection** 
 A complete collection of essential Flutter widgets, categorized for easy navigation.
 
 #### 📂 **App Structure and Layout Widgets**
@@ -102,63 +95,13 @@ A complete collection of essential Flutter widgets, categorized for easy navigat
 - LinearProgressIndicator.dart
 - Tooltip.dart
 
-### 3️⃣ **State Management** (Coming Soon)
+### 3️⃣ **State Management**
 - Managing state using `setState`
 - Provider state management
 - Riverpod vs BLoC
 - Redux and GetX overview
-
-### 4️⃣ **Navigation & Routing** (Coming Soon)
-- Basic navigation (`Navigator.push`, `pop`)
-- Named routes & GoRouter
-- Passing data between screens
-- Nested navigation & deep linking
-
-### 5️⃣ **Networking & APIs** (Coming Soon)
-- HTTP requests using `http` & `dio`
-- REST API integration
-- Handling responses & error handling
-- GraphQL queries & mutations
-
-### 6️⃣ **Database & Storage** (Coming Soon)
-- SharedPreferences (local storage)
-- SQLite database operations
-- Hive (lightweight NoSQL database)
-- Firebase Firestore (cloud database)
-
-### 7️⃣ **Stateful Features** (Coming Soon)
-- Using Camera & Image Picker
-- Accessing Location Services
-- Handling Push Notifications
-
-### 8️⃣ **Testing & Debugging** (Coming Soon)
-- Unit testing in Flutter
-- Widget testing best practices
-- Integration testing
-- Debugging & performance profiling
-
-### 9️⃣ **Performance & Optimization** (Coming Soon)
-- Profiling and debugging performance issues
-- Image and asset optimization
-- Lazy loading techniques
-
-### 🔟 **Deployment** (Coming Soon)
-- Generating signed APKs & iOS builds
-- Flutter Web deployment
-- Continuous Integration (CI/CD) setup
-
+  
 ---
-
-## 🚀 Get Started
-1. **Clone the Repository:**
-   ```sh
-   git clone https://github.com/azam-izm/flutter-from-zero-to-hero.git
-   ```
-2. **Navigate to the Project:**
-   ```sh
-   cd flutter-from-zero-to-hero
-   ```
-3. **Start Exploring the Code!**
 
 ## ⭐ Contributions
 Contributions are welcome! Feel free to submit pull requests for missing widgets, improvements, or additional learning materials.
