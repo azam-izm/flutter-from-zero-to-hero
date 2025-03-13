@@ -6,7 +6,7 @@ Welcome to **Flutter From Zero to Hero**, the ultimate structured guide to maste
 
 This roadmap outlines everything covered in this repository, including existing and upcoming content. Each section follows a **logical progression**, ensuring a seamless learning experience.
 
-### 2️⃣ **Flutter Widgets Collection** 
+**Flutter Widgets Collection** 
 A complete collection of essential Flutter widgets, categorized for easy navigation.
 
 #### 📂 **App Structure and Layout Widgets**
@@ -95,7 +95,7 @@ A complete collection of essential Flutter widgets, categorized for easy navigat
 - LinearProgressIndicator.dart
 - Tooltip.dart
 
-### 3️⃣ **State Management**
+**State Management**
 - Managing state using `setState`
 - Provider state management
 - Riverpod vs BLoC
