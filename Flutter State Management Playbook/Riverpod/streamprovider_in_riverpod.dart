@@ -12,7 +12,7 @@ import 'dart:async';
    Firebase Firestore streams, or periodic data updates.
 
 🔹 Steps Overview:
-   1. Define a `StreamProvider` → Emits values over time.
+   1. Define a `StreamProvider` using `async*` → Emits values over time.
    2. Wrap the app with `ProviderScope` → Enables Riverpod globally.
    3. Use `ref.watch()` → Watches the stream for updates.
    4. Handle different states with `when()` → `data`, `loading`, `error`.
@@ -20,21 +20,26 @@ import 'dart:async';
 --------------------------------------------
 */
 
-// Step 1️⃣: Define a `StreamProvider` that emits a value every second.
-final counterStreamProvider = StreamProvider<int>((ref) {
-  return Stream<int>.periodic(const Duration(seconds: 1), (count) => count + 1);
+// Step 1️⃣: Define a `StreamProvider` using `async*`.
+final counterStreamProvider = StreamProvider<int>((ref) async* {
+  int count = 0;
+  while (true) {
+    await Future.delayed(const Duration(seconds: 1)); // Simulate delay
+    yield count++; // Emit new values
+  }
 });
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
 
+// Step 2️⃣: Create a StatelessWidget to avoid unnecessary rebuilds.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    print('build MyApp'); // Will be printed only once
+    print('build MyApp'); // Printed only once
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -44,13 +49,13 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.black,
         ),
         body:
-            const CounterWidget(), // Step 2️⃣: Extract UI logic to a separate widget
+            const CounterWidget(), // Step 3️⃣: Extract UI logic to a separate widget
       ),
     );
   }
 }
 
-// Step 3️⃣: Use ConsumerWidget for optimized updates.
+// Step 4️⃣: Use `ConsumerWidget` to optimize UI updates.
 class CounterWidget extends ConsumerWidget {
   const CounterWidget({super.key});
 
@@ -78,17 +83,18 @@ class CounterWidget extends ConsumerWidget {
 --------------------------------------------
 1️⃣ `counterStreamProvider` → Starts emitting a value **every second**.
 2️⃣ `ProviderScope` → Enables Riverpod's state management.
-3️⃣ `MyApp` (ConsumerWidget) → Watches `counterStreamProvider`.
-4️⃣ `counterStream.when()` → Handles **loading, data, and error states**.
-5️⃣ **Loading state** → Shows `CircularProgressIndicator()` while waiting for the first value.
-6️⃣ **Data state** → Updates **counter** value every second dynamically.
-7️⃣ **Error state** → Displays error message if stream fails.
-8️⃣ **UI updates automatically** every second without manual intervention.
+3️⃣ `MyApp` (StatelessWidget) → Prevents unnecessary rebuilds.
+4️⃣ `CounterWidget` (ConsumerWidget) → Watches `counterStreamProvider`.
+5️⃣ `counterStream.when()` → Handles **loading, data, and error states**.
+6️⃣ **Loading state** → Shows `CircularProgressIndicator()` while waiting for the first value.
+7️⃣ **Data state** → Updates **counter** value every second dynamically.
+8️⃣ **Error state** → Displays error message if stream fails.
+9️⃣ **Only `CounterWidget` rebuilds** → Prevents app-wide unnecessary updates.
 --------------------------------------------
 
 ✅ **Key Takeaways:**
-- `StreamProvider` is ideal for **real-time data** (e.g., Firebase, WebSockets).
-- `ref.watch()` listens for **new values** and updates the UI dynamically.
-- `when()` makes handling **loading, success, and error states** easy.
-- `ProviderScope` is **mandatory** for Riverpod to work.
+- `StreamProvider` is ideal for **real-time data** (e.g., Firebase, WebSockets, sensor data).
+- **Use `async*` instead of `Stream.periodic`** for better control and error handling.
+- `ConsumerWidget` ensures **only relevant UI updates** for performance.
+- `ProviderScope` is **mandatory** to enable Riverpod globally.
 */
