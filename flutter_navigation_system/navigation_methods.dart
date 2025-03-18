@@ -120,13 +120,13 @@ class FirstScreen extends StatelessWidget {
               child: const Text('Maybe Pop'),
             ),
 /*
-  How maybePop Differs from Navigator.canPop
-  Action vs. Check:
+How maybePop Differs from Navigator.canPop
+Action vs. Check:
 
-  Navigator.canPop is a synchronous method that simply checks if the current route can be popped. It returns true or false 
-  immediately.
-  Navigator.maybePop is an asynchronous method that attempts to pop the current route and returns a Future<bool> indicating 
-  whether the pop was successful.
+Navigator.canPop is a synchronous method that simply checks if the current route can be popped. It returns true or false 
+immediately.
+Navigator.maybePop is an asynchronous method that attempts to pop the current route and returns a Future<bool> indicating 
+whether the pop was successful.
 */
           ],
         ),
@@ -150,8 +150,8 @@ class SecondScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 /*
-  Navigator.pop (Pops (removes) the top-most route from the navigation stack)
-  Used when you want to go back to the previous screen, it's Safe, will not crash if it's the last route
+Navigator.pop (Pops (removes) the top-most route from the navigation stack)
+Used when you want to go back to the previous screen, it's Safe, will not crash if it's the last route
 */
 
             ElevatedButton(
@@ -207,12 +207,12 @@ class ThirdScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 /*
-  Navigator.of(context).removeRoute(route)
-  Removes a specific route from the stack
-  Used to remove a route from anywhere in the stack
-  The route is removed, but the user stays on the current screen unless the removed route was on top
-  When you need to dynamically remove a route (e.g., after logout or cleanup)
-  Can cause a crash if the route doesn't exist or is the only route left
+Navigator.of(context).removeRoute(route)
+Removes a specific route from the stack
+Used to remove a route from anywhere in the stack
+The route is removed, but the user stays on the current screen unless the removed route was on top
+When you need to dynamically remove a route (e.g., after logout or cleanup)
+Can cause a crash if the route doesn't exist or is the only route left
 */
             ElevatedButton(
               onPressed: () {
@@ -340,8 +340,7 @@ class ThirdScreen extends StatelessWidget {
    ✅ `Navigator.push(context, MaterialPageRoute(...))` → Push a new screen.
    ✅ `Navigator.pop(context)` → Pop the current screen.
    ✅ `Navigator.pushReplacement(context, MaterialPageRoute(...))` → Replace current screen.
-   ✅ `Navigator.pushAndRemoveUntil(context, MaterialPageRoute(...), (route) => false)`
-      → Clear back stack & push a new screen.
+   ✅ `Navigator.pushAndRemoveUntil(context, MaterialPageRoute(...), (route) => false)` → Clear back stack & push a new screen.
    ✅ `Navigator.popUntil(context, (route) => route.isFirst)` → Go back to the first screen.
    ✅ `Navigator.canPop(context)` → Check if popping is possible.
    ✅ `Navigator.maybePop(context)` → Try to pop, else do nothing.
