@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 /*
 -------------------------------------------------------------
-📌 Unnamed Routes in GetX - Complete Guide 
+📌 Unnamed Routes in GetX - Complete Guide (With Data Passing)
 -------------------------------------------------------------
 
 🔹 What are Unnamed Routes?
@@ -16,10 +16,10 @@ import 'package:get/get.dart';
    - Useful for **dynamic routing** when routes depend on runtime data.
 
 🔹 Key Methods:
-   1️⃣ `Get.to(Screen())` - Push a new screen (like `Navigator.push`).
-   2️⃣ `Get.off(Screen())` - Replace the current screen (like `Navigator.pushReplacement`).
-   3️⃣ `Get.offAll(Screen())` - Remove all previous screens (like `Navigator.pushAndRemoveUntil`).
-   4️⃣ `Get.back()` - Pop the current screen (like `Navigator.pop`).
+   1⃣ `Get.to(() => Screen(), arguments: data)` - Navigate with data.
+   2⃣ `Get.off(() => Screen(), arguments: data)` - Replace the current screen and pass data.
+   3⃣ `Get.offAll(() => Screen(), arguments: data)` - Clear all previous screens and navigate with data.
+   4⃣ `Get.back(result: data)` - Go back to the previous screen and return data.
 
 🛠 Best Practices:
 - Use unnamed routes for **simple navigation** (e.g., authentication flow).
@@ -33,11 +33,11 @@ import 'package:get/get.dart';
 void main() {
   runApp(const GetMaterialApp(
     debugShowCheckedModeBanner: false,
-    home: FirstScreen(), // No need to define named routes!
+    home: FirstScreen(), 
   ));
 }
 
-// 📌 First Screen - First Screen in Navigation
+// 📌 First Screen - Sending Data to Second Screen
 class FirstScreen extends StatelessWidget {
   const FirstScreen({super.key});
 
@@ -47,8 +47,12 @@ class FirstScreen extends StatelessWidget {
       appBar: AppBar(title: const Text("First Screen")),
       body: Center(
         child: ElevatedButton(
-          onPressed: () {
-            Get.to(const SecondScreen()); // ✅ Navigate without a route name
+          onPressed: () async {
+            var result = await Get.to(
+              () => const SecondScreen(),
+              arguments: "Hello from FirstScreen", // ✅ Pass data
+            );
+            print("Returned Data: $result"); // ✅ Receive returned data
           },
           child: const Text("Go to Second Screen"),
         ),
@@ -57,36 +61,37 @@ class FirstScreen extends StatelessWidget {
   }
 }
 
-// 📌 Second Screen - Demonstrating `Get.off()`
+// 📌 Second Screen - Receiving & Passing Data
 class SecondScreen extends StatelessWidget {
   const SecondScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final String? receivedData = Get.arguments; // ✅ Receive data
+
     return Scaffold(
       appBar: AppBar(title: const Text("Second Screen")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text("Received: $receivedData"),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Get.off(const ThirdScreen());
-                /*
-                ✅ `Get.off(ThirdScreen())`
-                   - This replaces `SecondScreen` with `ThirdScreen`.
-                   - The user **cannot navigate back** to `SecondScreen`.
-                   - Use this when the previous screen is **no longer needed**.
-                */
+                Get.off(
+                  () => const ThirdScreen(),
+                  arguments: "Hello from SecondScreen", // ✅ Pass data
+                );
               },
               child: const Text("Replace with Third Screen"),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Get.back(); // ✅ Pop the screen (go back)
+                Get.back(result: "Data from SecondScreen"); // ✅ Return data
               },
-              child: const Text("Go Back"),
+              child: const Text("Go Back with Data"),
             ),
           ],
         ),
@@ -95,26 +100,32 @@ class SecondScreen extends StatelessWidget {
   }
 }
 
-// 📌 Third Screen - Demonstrating `Get.offAll()`
+// 📌 Third Screen - Passing Data and Resetting Navigation Stack
 class ThirdScreen extends StatelessWidget {
   const ThirdScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final String? receivedData = Get.arguments; // ✅ Receive data
+
     return Scaffold(
       appBar: AppBar(title: const Text("Third Screen")),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Get.offAll(const FirstScreen());
-            /*
-            ✅ `Get.offAll(FirstScreen())`
-               - Removes **ALL** previous screens from the stack.
-               - The user **cannot go back** to `SecondScreen` or `ThirdScreen`.
-               - Use this for logout flows or resetting navigation history.
-            */
-          },
-          child: const Text("Go back to Home (Remove All)"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Received: $receivedData"),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Get.offAll(
+                  () => const FirstScreen(),
+                  arguments: "Reset from ThirdScreen", // ✅ Pass data while resetting
+                );
+              },
+              child: const Text("Go back to Home (Remove All)"),
+            ),
+          ],
         ),
       ),
     );
