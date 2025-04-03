@@ -16,7 +16,7 @@ Author: Muhammad Azam
 
 /* 1️⃣ INDIVIDUAL RX VARIABLES CONTROLLER */
 class CounterController extends GetxController {
-// var count = RxInt(0); // Using `RxInt` to make the counter observable
+// RxInt count = RxInt(0); // Using `RxInt` to make the counter observable
 
 /*
 1️⃣ Individual Rx Variables Approach
@@ -24,22 +24,20 @@ class CounterController extends GetxController {
 * Best for simple, isolated state values
 * Uses .obs and Obx widget
 */
-  var count = 0.obs;
-  // // The `.obs` method is used to turn any normal variable into a reactive variable (e.g., `RxInt`, `RxString`, `RxBool`, etc.).
-  // // These reactive variables need to be wrapped inside widgets like `Obx()` to automatically update the UI whenever the value changes.
+  RxInt count = 0.obs;
+  // The `.obs` method is used to turn any normal variable into a reactive variable (e.g., `RxInt`, `RxString`, `RxBool`, etc.).
+  // These reactive variables need to be wrapped inside widgets like `Obx()` to automatically update the UI whenever the value changes.
 
   void increment() => count++; // Increases the count
   void decrement() => count--; // Decreases the count
 
-  // var count = Rx<int>(0);
+  // Rx<int> count = Rx<int>(0);
   // void increment() => count.value++; // Access the value with `.value`
   // void decrement() => count.value--; // Access the value with `.value`'
 
   // Stream integration example
   final _streamController = Stream<int>.periodic(
-    const Duration(seconds: 1),
-    (x) => x,
-  ).asBroadcastStream();
+    const Duration(seconds: 1),(x) => x,).asBroadcastStream();
 
   @override
   void onInit() {
