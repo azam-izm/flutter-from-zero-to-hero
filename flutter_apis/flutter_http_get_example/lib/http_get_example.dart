@@ -23,7 +23,6 @@ class HttpGetExample extends StatelessWidget {
             return Center(child: Text("Error: ${snapshot.error}"));
           } else if (snapshot.hasData) {
             return ListView.builder(
-              padding: const EdgeInsets.all(8.0),
               itemCount: snapshot.data?.quotes?.length ?? 0,
               itemBuilder: (context, index) {
                 Quotes quote = snapshot.data!.quotes![index];
@@ -32,8 +31,7 @@ class HttpGetExample extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   elevation: 4,
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
                   child: ListTile(
                     contentPadding: const EdgeInsets.all(15),
                     title: Text(
