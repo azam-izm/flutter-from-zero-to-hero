@@ -1,8 +1,6 @@
 /*
 ============
 add these packages
-
-  app_settings: ^6.1.1
   firebase_core: ^3.13.0
   firebase_messaging: ^15.2.5
 ============
