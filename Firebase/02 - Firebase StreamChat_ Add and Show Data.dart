@@ -39,18 +39,13 @@ class _MessagesScreenState extends State<MessagesScreen> {
   void _sendMessage() {
     final text = _messageController.text.trim();
     if (text.isNotEmpty) {
-      FirebaseFirestore.instance
-          .collection('messages')
-          .add({'text': text, 'createdAt': Timestamp.now()}); // Added timestamp
+      FirebaseFirestore.instance.collection('messages').add({'text': text, 'createdAt': Timestamp.now()}); // Added timestamp
       _messageController.clear();
     }
   }
 
   void _deleteMessage(String documentId) async {
-    await FirebaseFirestore.instance
-        .collection('messages')
-        .doc(documentId)
-        .delete();
+    await FirebaseFirestore.instance.collection('messages').doc(documentId).delete();
   }
 
   void _startUpdate(String documentId, String currentText) {
@@ -95,10 +90,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
 
   void _updateMessage(String documentId, String newText) async {
     if (newText.isNotEmpty && _selectedDocumentId != null) {
-      await FirebaseFirestore.instance
-          .collection('messages')
-          .doc(_selectedDocumentId) // Use _selectedDocumentId here
-          .update({
+      await FirebaseFirestore.instance.collection('messages').doc(_selectedDocumentId).update({
         'text': newText,
         'updatedAt': Timestamp.now(),
       });
@@ -109,16 +101,11 @@ class _MessagesScreenState extends State<MessagesScreen> {
   void _queryMessages(String query) async {
     if (query.isNotEmpty) {
       final QuerySnapshot<Map<String, dynamic>> snapshot =
-          await FirebaseFirestore.instance
-              .collection('messages')
-              .where('text', isGreaterThanOrEqualTo: query)
-              .where('text',
-                  isLessThan: query + 'z') // Simple way to query containing
-              .get();
+          await FirebaseFirestore.instance.collection('messages').where('text', isGreaterThanOrEqualTo: query).where(
+            'text', isLessThan: query + 'z'
+            ).get();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text(
-                'Found ${snapshot.docs.length} messages containing "$query"')),
+        SnackBar(content: Text('Found ${snapshot.docs.length} messages containing "$query"')),
       );
       // You can then update the UI to display these queried messages if needed.
       // For this example, we're just showing a snackbar.
@@ -178,21 +165,43 @@ class _MessagesScreenState extends State<MessagesScreen> {
         children: [
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('messages')
-                  .orderBy('createdAt')
-                  .snapshots(), // Ordering by timestamp
+              stream: FirebaseFirestore.instance.collection('messages').orderBy('createdAt').snapshots(), // Ordering by timestamp
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.hasError) {
+                } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
-                }
-                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                   return const Center(child: Text('No messages yet.'));
+                } else if (snapshot.hasData) {
+                  final docs = snapshot.data!.docs;
+                  return ListView.builder(
+                    itemCount: docs.length,
+                    itemBuilder: (context, index) {
+                      final doc = docs[index];
+                      return ListTile(
+                        title: Text(doc['text'] ?? 'No Text'),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.edit),
+                              onPressed: () =>
+                                  _startUpdate(doc.id, doc['text']),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete),
+                              onPressed: () => _deleteMessage(doc.id),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  return const SizedBox();
                 }
-                final docs = snapshot.data!.docs;
+
                 /*
                 =====================
                 QuerySnapshot contains a property called .docs
@@ -201,29 +210,6 @@ class _MessagesScreenState extends State<MessagesScreen> {
                 Without .docs, you’re just holding the snapshot, not the actual documents inside it.
                 =====================
                 */
-                return ListView.builder(
-                  itemCount: docs.length,
-                  itemBuilder: (context, index) {
-                    final doc = docs[index];
-                    final data = doc.data() as Map<String, dynamic>;
-                    return ListTile(
-                      title: Text(data['text'] ?? 'No Text'),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.edit),
-                            onPressed: () => _startUpdate(doc.id, data['text']),
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () => _deleteMessage(doc.id),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
               },
             ),
           ),
