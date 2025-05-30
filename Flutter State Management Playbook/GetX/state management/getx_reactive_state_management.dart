@@ -332,7 +332,7 @@ void main() {
 
 /// Controller using GetX
 class CounterController extends GetxController {
-  var count = 0.obs; // .obs makes it reactive
+  RxInt count = 0.obs; // .obs makes it reactive
 
   void increment() => count++;
   void decrement() => count--;
@@ -343,10 +343,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return const GetMaterialApp(
       title: 'GetX Counter',
       debugShowCheckedModeBanner: false,
-      home: const CounterPage(),
+      home: CounterPage(),
     );
   }
 }
@@ -371,13 +371,11 @@ class CounterPage extends StatelessWidget {
         children: [
           FloatingActionButton(
             onPressed: controller.increment,
-            tooltip: 'Increment',
             child: const Icon(Icons.add),
           ),
           const SizedBox(width: 10),
           FloatingActionButton(
             onPressed: controller.decrement,
-            tooltip: 'Decrement',
             child: const Icon(Icons.remove),
           ),
         ],
