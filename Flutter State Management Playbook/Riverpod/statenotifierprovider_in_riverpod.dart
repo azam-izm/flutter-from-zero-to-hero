@@ -54,8 +54,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar:
-            AppBar(title: const Text('Riverpod StateNotifierProvider Example')),
+        appBar: AppBar(title: const Text('Riverpod StateNotifierProvider Example')),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -76,26 +75,22 @@ class MyApp extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () =>
-                        ref.read(counterProvider.notifier).increment(),
+                    onPressed: () => ref.read(counterProvider.notifier).increment(),
                     child: const Text('+'),
                   ),
                   const SizedBox(width: 20),
                   ElevatedButton(
-                    onPressed: () =>
-                        ref.read(counterProvider.notifier).decrement(),
+                    onPressed: () => ref.read(counterProvider.notifier).decrement(),
                     child: const Text('-'),
                   ),
                   const SizedBox(width: 20),
                   ElevatedButton(
-                    onPressed: () =>
-                        ref.read(counterProvider.notifier).halveValue(),
+                    onPressed: () => ref.read(counterProvider.notifier).halveValue(),
                     child: const Text('/'),
                   ),
                   const SizedBox(width: 20),
                   ElevatedButton(
-                    onPressed: () =>
-                        ref.read(counterProvider.notifier).doubleValue(),
+                    onPressed: () => ref.read(counterProvider.notifier).doubleValue(),
                     child: const Text('*'),
                   ),
                 ],
