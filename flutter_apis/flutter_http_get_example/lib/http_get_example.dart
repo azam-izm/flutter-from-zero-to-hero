@@ -53,13 +53,14 @@ class HttpGetExample extends StatelessWidget {
                 );
               },
             );
-          }
-          return const Center(
+          } else {
+            return const Center( // Default fallback in case of an unknown error
             child: Text(
               'Oops! Something went wrong!',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-          ); // Default fallback in case of an unknown error
+          ); 
+          } 
         },
       ),
     );
