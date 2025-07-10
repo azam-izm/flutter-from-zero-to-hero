@@ -32,42 +32,39 @@ class MessagesScreen extends StatefulWidget {
 }
 
 class _MessagesScreenState extends State<MessagesScreen> {
+
   final TextEditingController messageController = TextEditingController();
   final TextEditingController updateController = TextEditingController();
-  String? selectedMessageId;
 
-  // Add a message to Firestore
+  // Add a new message
   void addMessage() {
     final messageText = messageController.text.trim();
 
     if (messageText.isNotEmpty) {
       FirebaseFirestore.instance.collection('messages').add({'text': messageText});
       messageController.clear();
+
     }
   }
 
-  // Delete a message by its ID
+  // Delete a message by ID
   void deleteMessage(String id) {
     FirebaseFirestore.instance.collection('messages').doc(id).delete();
   }
 
-  // Show the update dialog with current message shown in the title
+  // Show dialog to update message
   void showUpdateDialog(String id, String currentText) {
-    updateController.clear(); // Empty field so user types new message
-    selectedMessageId = id;
-
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          // Showing current text in the title
+          // Show current message in the title
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Update Message'),
               const SizedBox(height: 4),
-              Text(
-                'Current: $currentText',
+              Text('Current: $currentText',
                 style: const TextStyle(fontSize: 12, color: Colors.grey),
               ),
             ],
@@ -86,7 +83,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                updateMessage();
+                updateMessage(id); // Pass ID directly
                 Navigator.of(context).pop();
               },
               child: const Text('Update'),
@@ -97,15 +94,12 @@ class _MessagesScreenState extends State<MessagesScreen> {
     );
   }
 
-  // Update the message in Firestore
-  void updateMessage() {
+  // Update message by ID
+  void updateMessage(String id) {
     final newText = updateController.text.trim();
-
-    if (selectedMessageId != null && newText.isNotEmpty) {
-      FirebaseFirestore.instance.collection('messages').doc(selectedMessageId).update({'text': newText});
-
+    if (newText.isNotEmpty) {
+      FirebaseFirestore.instance.collection('messages').doc(id).update({'text': newText});
       updateController.clear();
-      selectedMessageId = null;
     }
   }
 
@@ -115,7 +109,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
       appBar: AppBar(title: const Text('Messages')),
       body: Column(
         children: [
-          // Real-time message list
+          // Display messages using StreamBuilder
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance.collection('messages').snapshots(),
@@ -162,7 +156,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
             ),
           ),
 
-          // Input box and Add button
+          // Input field + Add button
           Padding(
             padding: const EdgeInsets.all(8),
             child: Row(
@@ -174,7 +168,6 @@ class _MessagesScreenState extends State<MessagesScreen> {
                       hintText: 'Enter message',
                       border: OutlineInputBorder(),
                     ),
-                    // Add on "Enter" press
                     onSubmitted: (_) => addMessage(),
                   ),
                 ),
