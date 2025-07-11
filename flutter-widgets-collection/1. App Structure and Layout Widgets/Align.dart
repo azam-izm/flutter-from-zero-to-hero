@@ -1,5 +1,5 @@
 /*
-   📚 Chapter: Mastering the Align Widget in Flutter
+  📚 Chapter: Mastering the Align Widget in Flutter
  
    🏗️ Overview:
    The Align widget is used to position widgets inside its parent using alignment coordinates.
@@ -35,29 +35,32 @@ class MyApp extends StatelessWidget {
             // 🎨 A row of overlapping circles at the top, centered horizontally
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(5, (index) => OverlappingCircle(colors[index])),
+              children: List.generate(
+                colors.length,
+                (index) => overlappingCircle(colors[index]),
+              ),
             ),
 
             // 🌎 Glowing energy rings (orbit effect) aligned to the top-right
             ...List.generate(5, (index) {
-              double scale = 1 - (index * 0.15); // Reduces size progressively
+              double scale = 1 - (index * 0.15);
               return Align(
-                alignment: Alignment.topRight, // Positioned at the top-right
+                alignment: Alignment.topRight,
                 child: Transform.scale(
                   scale: scale,
-                  child: GlowingCircle(Colors.blueAccent.withOpacity(0.3)),
+                  child: glowingCircle(Colors.blueAccent.withOpacity(0.3)),
                 ),
               );
             }),
 
             // 🎨 Colorful circles aligned to bottom-left, decreasing in size
             ...List.generate(8, (index) {
-              double scale = 1 - (index * 0.1); // Shrinks each subsequent circle
+              double scale = 1 - (index * 0.1);
               return Align(
                 alignment: Alignment.bottomLeft,
                 child: Transform.scale(
                   scale: scale,
-                  child: CircleWidget(
+                  child: circleWidget(
                     Colors.primaries[index % Colors.primaries.length],
                   ),
                 ),
@@ -96,11 +99,11 @@ Widget topLeft() {
 
 // 🎨 List of predefined colors for the overlapping circles
 const List<Color> colors = [
-  Colors.red,
-  Colors.orange,
-  Colors.yellow,
+  Colors.purple,
+  Colors.indigo,
+  Colors.blue,
+  Colors.teal,
   Colors.green,
-  Colors.blue
 ];
 
 /*
@@ -108,25 +111,20 @@ const List<Color> colors = [
  * This widget creates a row of overlapping circles.
  * It uses `Align` with `widthFactor` to control the overlap.
  */
-class OverlappingCircle extends StatelessWidget {
-  final Color color;
-  const OverlappingCircle(this.color, {super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      widthFactor: 0.4, // ✅ 40% visible, 60% overlapped
-      child: Container(
-        width: 80,
-        height: 80,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: color,
-          border: Border.all(color: Colors.black, width: 2),
-        ),
+Widget overlappingCircle(Color color) {
+  return Align(
+    widthFactor: 0.4, // 40% width shown, rest overlaps
+    child: Container(
+      width: 80,
+      height: 80,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: color,
+        border: Border.all(color: Colors.black, width: 2),
       ),
-    );
-  }
+    ),
+  );
 }
 
 /*
@@ -134,22 +132,16 @@ class OverlappingCircle extends StatelessWidget {
  * Creates a glowing circle effect using border and shadow.
  * Now aligned to the top-right for a unique effect.
  */
-class GlowingCircle extends StatelessWidget {
-  final Color color;
-  const GlowingCircle(this.color, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 200,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: color, width: 3),
-        boxShadow: [BoxShadow(color: color, blurRadius: 15)],
-      ),
-    );
-  }
+Widget glowingCircle(Color color) {
+  return Container(
+    width: 200,
+    height: 200,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      border: Border.all(color: color, width: 3),
+      boxShadow: [BoxShadow(color: color, blurRadius: 15)],
+    ),
+  );
 }
 
 /*
@@ -157,22 +149,16 @@ class GlowingCircle extends StatelessWidget {
  * Creates a filled circle with a semi-transparent effect.
  * Used in the bottom-left alignment for a shrinking effect.
  */
-class CircleWidget extends StatelessWidget {
-  final Color color;
-  const CircleWidget(this.color, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 200,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: color.withOpacity(0.8),
-        border: Border.all(color: Colors.white, width: 2),
-      ),
-    );
-  }
+Widget circleWidget(Color color) {
+  return Container(
+    width: 200,
+    height: 200,
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      color: color.withOpacity(0.8),
+      border: Border.all(color: Colors.white, width: 2),
+    ),
+  );
 }
 
 /*
