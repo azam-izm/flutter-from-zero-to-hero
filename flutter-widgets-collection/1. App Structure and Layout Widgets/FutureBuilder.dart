@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         body: Center(
           child: FutureBuilder<String>(
             future: fetchData(), // The async operation to perform
+         // future: Future.delayed(const Duration(seconds: 3), () => "Hello from the Future!"),
             builder: (context, snapshot) {
               // Check the connection state and data
               if (snapshot.connectionState == ConnectionState.waiting) {
