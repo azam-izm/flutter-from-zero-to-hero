@@ -20,10 +20,10 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Login Flow App',
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }
@@ -61,8 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-          child:
-              Text('🌟 Welcome to Our App!', style: TextStyle(fontSize: 24))),
+          child:Text('🌟 Welcome to Our App!', style: TextStyle(fontSize: 24))),
     );
   }
 }
