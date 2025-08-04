@@ -86,3 +86,29 @@ Future<ModelClass> fetchQuotes() async {
     throw Exception('An error occurred: $error');
   }
 }
+
+// Future<ModelClass> fetchQuotes() async {
+//   await Future.delayed(const Duration(seconds: 1)); // simulate delay
+
+//   // Manually creating quote list using Quotes({...})
+//   List<Quotes> quotesList = [
+//     Quotes(
+//         id: 1,
+//         quote: "Be like a tree and let the dead leaves drop.",
+//         author: "Rumi"),
+//     Quotes(
+//         id: 2,
+//         quote: "You were born with wings, why prefer to crawl through life?",
+//         author: "Rumi"),
+//   ];
+
+//   // Manually creating the model using ModelClass({...})
+//   ModelClass mockModel = ModelClass(
+//     quotes: quotesList,
+//     total: 2,
+//     skip: 0,
+//     limit: 30,
+//   );
+
+//   return mockModel;
+// }
