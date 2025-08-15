@@ -49,7 +49,7 @@ class _PostsScreenState extends State<PostsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Posts List - Future<void> Example"),
+        title: const Text("Posts List"),
         backgroundColor: Colors.teal,
       ),
       body: FutureBuilder(
