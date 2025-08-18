@@ -9,7 +9,7 @@ What it does:
 
 When to use:
      When your object doesn’t need to be updated or listened to.
-    For example, exposing a service class.
+     For example, exposing a service class.
 */
 
 import 'package:flutter/material.dart';
@@ -28,6 +28,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final message = Provider.of<String>(context); // read value
+    // final message = context.read<String>(); // OR
+    // final message = context.watch<String>(); // OR
     return MaterialApp(
       home: Scaffold(
         body: Center(
