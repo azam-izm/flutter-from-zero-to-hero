@@ -61,8 +61,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Text('Doubled number is $doubled', style: const TextStyle(fontSize: 20),
-          ),
+          child: Text('Doubled number is $doubled', style: const TextStyle(fontSize: 20)),
         ),
       ),
     );
