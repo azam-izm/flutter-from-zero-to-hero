@@ -1,20 +1,11 @@
 /*
 Using ChangeNotifierProvider in Provider Package
 
-1. Define a class that extends ChangeNotifier.
-   - Holds state in private variables.
-   - Exposes getters.
-   - Calls notifyListeners() when state changes.
-
-2. Wrap your app with ChangeNotifierProvider.
-   - Makes the state available across the widget tree.
-   - Use `create` or `.value` constructor.
-
-3. Trigger changes with context.read() or Provider.of(..., listen: false).
-   - These do not rebuild the widget that calls them.
-
-4. Listen to changes with Consumer, context.watch(), or Provider.of().
-   - These rebuild when notifyListeners() is called.
+What it does:
+   Provides a ChangeNotifier object, which allows you to notify listeners when something changes.
+   Perfect for mutable state that changes over time.
+When to use:
+   When you have a model with properties that can change and you want the UI to update automatically.
 */
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
