@@ -1,5 +1,5 @@
 /*
-Using ChangeNotifierProvider in Provider Package
+Using ChangeNotifierProvider in Provider Package 
 
 What it does:
    Provides a ChangeNotifier object, which allows you to notify listeners when something changes.
