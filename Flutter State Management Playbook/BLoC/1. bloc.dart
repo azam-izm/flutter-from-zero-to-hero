@@ -56,10 +56,7 @@ class CounterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Flutter Counter App Using Bloc',
-          style: TextStyle(color: Colors.black),
-        ),
+        title: const Text('Flutter Counter App Using Bloc', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.orange,
       ),
       body: Center(
@@ -69,15 +66,10 @@ class CounterScreen extends StatelessWidget {
             // BlocBuilder listens to CounterBloc and rebuilds the Text widget
             BlocBuilder<CounterBloc, CounterState>(
               builder: (context, state) {
-                return Text(
-                  'Counter: ${state.counter}',
-                  style: const TextStyle(
-                      fontSize: 24, fontWeight: FontWeight.bold),
-                );
+                return Text('Counter: ${state.counter}', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold));
               },
             ),
             const SizedBox(height: 20),
-
             // Buttons arranged using Wrap for responsive layout
             Wrap(
               spacing: 10,
@@ -97,7 +89,8 @@ class CounterScreen extends StatelessWidget {
   }
 
   // Helper method to create a styled counter button
-  Widget _counterButton(BuildContext context, String label, CounterEvent event) {
+  Widget _counterButton(
+      BuildContext context, String label, CounterEvent event) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.orange,
@@ -115,54 +108,44 @@ class CounterScreen extends StatelessWidget {
 // Define Events
 //--------------------------------------------
 
-abstract class CounterEvent extends Equatable {}
+abstract class CounterEvent extends Equatable {
+  const CounterEvent();
+
+  @override
+  List<Object> get props => [];
+}
 
 // Increment the counter by 1
-class IncrementCounter extends CounterEvent {
-  @override
-  List<Object?> get props => [];
-}
+class IncrementCounter extends CounterEvent {}
 
 // Decrement the counter by 1
-class DecrementCounter extends CounterEvent {
-  @override
-  List<Object?> get props => [];
-}
+class DecrementCounter extends CounterEvent {}
 
 // Divide the counter by 2 (integer division)
-class DivideCounter extends CounterEvent {
-  @override
-  List<Object?> get props => [];
-}
+class DivideCounter extends CounterEvent {}
 
 // Multiply the counter by 2
-class MultiplyCounter extends CounterEvent {
-  @override
-  List<Object?> get props => [];
-}
+class MultiplyCounter extends CounterEvent {}
 
 // Reset the counter to 0
-class ResetCounter extends CounterEvent {
-  @override
-  List<Object?> get props => [];
-}
+class ResetCounter extends CounterEvent {}
 
 //--------------------------------------------
 // Define State
 //--------------------------------------------
 
 class CounterState extends Equatable {
-  final int counter;
 
-  const CounterState(this.counter);
+  final int counter;
+  const CounterState({this.counter = 0});
 
   // Returns a new state with updated counter value
   CounterState copyWith({int? counter}) {
-    return CounterState(counter ?? this.counter);
+    return CounterState(counter: counter ?? this.counter);
   }
 
   @override
-  List<Object?> get props => [counter];
+  List<Object> get props => [counter];
 }
 
 //--------------------------------------------
@@ -170,17 +153,18 @@ class CounterState extends Equatable {
 //--------------------------------------------
 
 class CounterBloc extends Bloc<CounterEvent, CounterState> {
-  CounterBloc() : super(const CounterState(0)) {
-    on<IncrementCounter>((event, emit) => emit(state.copyWith(counter: state.counter + 1)));
-
-    on<DecrementCounter>((event, emit) => emit(state.copyWith(counter: state.counter - 1)));
-
-    on<DivideCounter>((event, emit) => emit(state.copyWith(counter: state.counter != 0 ? state.counter ~/ 2 : 0)));
-
-    on<MultiplyCounter>((event, emit) => emit(state.copyWith(counter: state.counter * 2)));
-
-    on<ResetCounter>((event, emit) => emit(const CounterState(0)));
+  CounterBloc() : super(const CounterState()) {
+    on<IncrementCounter>(_increment);
+    on<DecrementCounter>(_decrement);
+    on<DivideCounter>(_divide);
+    on<MultiplyCounter>(_multiply);
+    on<ResetCounter>((event, emit) => emit(const CounterState(counter: 0)));
   }
+
+  void _increment(IncrementCounter event, Emitter<CounterState> emit) => emit(state.copyWith(counter: state.counter + 1));
+  void _decrement(event, emit) => emit(state.copyWith(counter: state.counter - 1));
+  void _divide(event, emit) => emit(state.copyWith(counter: state.counter != 0 ? state.counter ~/ 2 : 0));
+  void _multiply(event, emit) => emit(state.copyWith(counter: state.counter * 2));
 }
 
 /*
