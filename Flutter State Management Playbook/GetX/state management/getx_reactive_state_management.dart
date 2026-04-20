@@ -1,3 +1,67 @@
+/*
+=========================================================
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+/// Controller using GetX
+class CounterController extends GetxController {
+  RxInt count = 0.obs; // .obs makes it reactive
+
+  void increment() => count++;
+  void decrement() => count--;
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      title: 'GetX Counter',
+      debugShowCheckedModeBanner: false,
+      home: CounterPage(),
+    );
+  }
+}
+
+class CounterPage extends StatelessWidget {
+  CounterPage({super.key});
+  final CounterController controller = Get.put(CounterController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('GetX Counter')),
+      body: Center(
+        child: Obx(() => Text(
+              'Counter: ${controller.count}',
+              style: const TextStyle(fontSize: 30),
+            )),
+      ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: controller.increment,
+            child: const Icon(Icons.add),
+          ),
+          const SizedBox(width: 10),
+          FloatingActionButton(
+            onPressed: controller.decrement,
+            child: const Icon(Icons.remove),
+          ),
+        ],
+      ),
+    );
+  }
+}
+=========================================================
+*/
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -319,69 +383,4 @@ class CounterScreen extends StatelessWidget {
 *    - Prefer Obx for simple cases
 *    - Combine reactive approaches strategically
 
-*/
-
-/*
-=========================================================
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-/// Controller using GetX
-class CounterController extends GetxController {
-  RxInt count = 0.obs; // .obs makes it reactive
-
-  void increment() => count++;
-  void decrement() => count--;
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const GetMaterialApp(
-      title: 'GetX Counter',
-      debugShowCheckedModeBanner: false,
-      home: CounterPage(),
-    );
-  }
-}
-
-class CounterPage extends StatelessWidget {
-  const CounterPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final CounterController controller = Get.put(CounterController());
-
-    return Scaffold(
-      appBar: AppBar(title: const Text('GetX Counter')),
-      body: Center(
-        child: Obx(() => Text(
-              'Counter: ${controller.count}',
-              style: const TextStyle(fontSize: 30),
-            )),
-      ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: controller.increment,
-            child: const Icon(Icons.add),
-          ),
-          const SizedBox(width: 10),
-          FloatingActionButton(
-            onPressed: controller.decrement,
-            child: const Icon(Icons.remove),
-          ),
-        ],
-      ),
-    );
-  }
-}
-=========================================================
 */
